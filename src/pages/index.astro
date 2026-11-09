@@ -1,0 +1,220 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import FaqList from '../components/FaqList.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { servicos, categorias } from '../data/servicos';
+import { cidades, cidadesPorRegiao, cidadePath, principais } from '../data/locais';
+import { faqSchema } from '../data/schema';
+import { getCollection } from 'astro:content';
+import type { IconName } from '../data/icons';
+
+const faq = [
+  {
+    q: 'Vocês atendem a minha cidade?',
+    a: `Atendemos Campinas e mais ${cidades.length - 1} cidades do DDD 19, entre elas Sumaré, Hortolândia, Indaiatuba, Americana, Piracicaba e Limeira. A lista completa está na página de cidades atendidas.`,
+  },
+  {
+    q: 'Quanto tempo leva para a equipe chegar?',
+    a: `Chegamos em até ${site.arrivalMinutes} minutos nas regiões atendidas.`,
+  },
+  {
+    q: 'O plantão funciona de madrugada e no fim de semana?',
+    a: 'Sim. Atendemos 24 horas por dia, todos os dias do ano, inclusive feriados.',
+  },
+  {
+    q: 'Vocês fazem limpa fossa em chácara e sítio?',
+    a: 'Sim. O caminhão limpa fossa atende zona urbana e rural: casas, chácaras, sítios, condomínios e empresas.',
+  },
+  {
+    q: 'Como peço o atendimento?',
+    a: 'Pelo WhatsApp ou por telefone. Diga a cidade, o bairro e o que está acontecendo. Uma foto ou um vídeo ajudam a equipe a sair com o equipamento certo.',
+  },
+  {
+    q: 'Atendem empresas, condomínios e restaurantes?',
+    a: 'Sim. Além das residências, atendemos condomínios, comércios, restaurantes, hotéis e indústrias.',
+  },
+];
+
+const problemas: { icon: IconName; label: string; href: string }[] = [
+  { icon: 'truck', label: 'Fossa cheia', href: '/servicos/limpa-fossa/' },
+  { icon: 'sewer', label: 'Esgoto voltando', href: '/servicos/desentupimento-de-esgoto/' },
+  { icon: 'toilet', label: 'Vaso entupido', href: '/servicos/desentupimento-de-vaso-sanitario/' },
+  { icon: 'sink', label: 'Pia entupida', href: '/servicos/desentupimento-de-pia/' },
+  { icon: 'drain', label: 'Ralo entupido', href: '/servicos/desentupimento-de-ralo/' },
+  { icon: 'grease', label: 'Caixa de gordura cheia', href: '/servicos/limpeza-de-caixa-de-gordura/' },
+];
+
+const destaque = principais.map((slug) => cidades.find((c) => c.slug === slug)!);
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.data.getTime() - a.data.data.getTime())
+  .slice(0, 3);
+---
+
+<Base
+  title="Desentupidora e Limpa Fossa 24h em Campinas e Região | Dutra"
+  description={site.description}
+  schema={[faqSchema(faq)]}
+>
+  <section class="hero hero-home">
+    <div class="container hero-split">
+      <div>
+        <span class="pill"><span class="dot" aria-hidden="true"></span> Equipe de plantão agora</span>
+        <h1>Desentupidora e limpa fossa 24h em <em>Campinas e região</em></h1>
+        <p class="hero-lead">
+          Entupiu pia, ralo, vaso ou esgoto? A fossa encheu? Chegamos em até {site.arrivalMinutes} minutos em todo o DDD 19.
+        </p>
+        <CtaButtons />
+        <p class="hero-cities">
+          <Icon name="pin" size={18} />
+          {destaque.map((c, i) => (
+            <>
+              <a href={cidadePath(c)}>{c.nome}</a>{i < destaque.length - 1 ? ' · ' : ' '}
+            </>
+          ))}
+          <a href="/cidades-atendidas/">e mais {cidades.length - destaque.length} cidades</a>
+        </p>
+      </div>
+      <aside class="hero-panel" aria-label="Plantão">
+        <p class="hero-panel-title">Plantão 24 horas</p>
+        <ul>
+          <li><Icon name="check" size={20} /> Atendimento a qualquer hora, todos os dias</li>
+          <li><Icon name="check" size={20} /> Chegada em até {site.arrivalMinutes} minutos</li>
+          <li><Icon name="check" size={20} /> Caminhão limpa fossa e hidrojato</li>
+          <li><Icon name="check" size={20} /> {cidades.length} cidades do DDD 19</li>
+        </ul>
+        <a class="hero-panel-phone" href={site.tel}>
+          <small>Ligue agora</small>
+          <strong>{site.phoneDisplay}</strong>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="problems" aria-label="Qual é o problema?">
+    <div class="container">
+      <h2 class="problems-title">Qual é o problema?</h2>
+      <div class="problems-grid">
+        {problemas.map((p) => (
+          <a href={p.href}><Icon name={p.icon} size={30} /> <span>{p.label}</span></a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="servicos">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">O que fazemos</span>
+        <h2>Do ralo do banheiro à fossa do sítio</h2>
+        <p>Uma equipe só para desentupimento, hidrojateamento, limpa fossa e caixa de gordura, em casas, condomínios e empresas.</p>
+      </div>
+      {
+        categorias.map((cat) => (
+          <>
+            <h3 class="group-title">{cat}</h3>
+            <div class="services-grid">
+              {servicos.filter((s) => s.categoria === cat).map((s) => <ServiceCard servico={s} />)}
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Números">
+    <div class="container stats-grid">
+      <div><strong>24h</strong><span>plantão todos os dias</span></div>
+      <div><strong>{site.arrivalMinutes} min</strong><span>tempo de chegada</span></div>
+      <div><strong>{cidades.length}</strong><span>cidades atendidas</span></div>
+      <div><strong>{servicos.length}</strong><span>serviços especializados</span></div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Como funciona</span>
+        <h2>Três passos até o problema sumir</h2>
+      </div>
+      <ol class="timeline">
+        <li>
+          <h3>Você chama</h3>
+          <p>WhatsApp ou telefone, a qualquer hora. Diga a cidade e o que está acontecendo.</p>
+        </li>
+        <li>
+          <h3>A equipe sai na hora</h3>
+          <p>O time mais próximo vai para o seu endereço e chega em até {site.arrivalMinutes} minutos.</p>
+        </li>
+        <li>
+          <h3>Serviço feito e testado</h3>
+          <p>Usamos o equipamento certo para o caso e testamos o escoamento antes de ir embora.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="cidades">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Cidades atendidas</span>
+        <h2>Em Campinas e em todo o DDD 19</h2>
+        <p>Escolha a sua cidade para ver o atendimento de desentupidora e de limpa fossa.</p>
+      </div>
+      <div class="regions">
+        {
+          cidadesPorRegiao().map((g) => (
+            <div class="region">
+              <h3>{g.regiao.nome}</h3>
+              <p>{g.regiao.resumo}</p>
+              <div class="chips">
+                {g.cidades.map((c) => <a href={cidadePath(c)}>{c.nome}</a>)}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+
+  {
+    posts.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Guia</span>
+            <h2>Para entender antes de chamar</h2>
+          </div>
+          <div class="posts">
+            {posts.map((p) => (
+              <a class="post-card" href={`/blog/${p.id}/`}>
+                <time datetime={p.data.data.toISOString()}>{p.data.data.toLocaleDateString('pt-BR')}</time>
+                <h3>{p.data.titulo}</h3>
+                <p>{p.data.descricao}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section-soft">
+    <div class="container faq-split">
+      <div class="section-head">
+        <span class="eyebrow">Dúvidas</span>
+        <h2>Perguntas que todo mundo faz</h2>
+        <p>Não achou a sua? Mande no WhatsApp que a gente responde na hora.</p>
+      </div>
+      <FaqList items={faq} />
+    </div>
+  </section>
+
+  <CtaBand title="Precisa de atendimento agora?" />
+</Base>

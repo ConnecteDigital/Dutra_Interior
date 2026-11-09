@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqList from '../components/FaqList.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { servicos } from '../data/servicos';
+import { cidades, cidadePath, fossaPath, getRegiao, type Cidade } from '../data/locais';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+export function getStaticPaths() {
+  return cidades.map((cidade) => ({ params: { slug: cidade.slug }, props: { cidade } }));
+}
+
+interface Props {
+  cidade: Cidade;
+}
+
+const { cidade } = Astro.props;
+const regiao = getRegiao(cidade.regiao);
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Cidades atendidas', path: '/cidades-atendidas/' },
+  { name: cidade.nome, path: cidadePath(cidade) },
+];
+const faq = [
+  {
+    q: `A desentupidora atende ${cidade.nome} de madrugada?`,
+    a: `Sim. O plantão em ${cidade.nome} funciona 24 horas, de domingo a domingo, inclusive em feriados.`,
+  },
+  {
+    q: `Quanto tempo a equipe leva para chegar em ${cidade.nome}?`,
+    a: `Chegamos em até ${site.arrivalMinutes} minutos em ${cidade.nome}.`,
+  },
+  {
+    q: `Quais serviços vocês fazem em ${cidade.nome}?`,
+    a: `Desentupimento de pia, ralo, vaso sanitário, cano, esgoto e conduíte, hidrojateamento, limpa fossa e limpeza de caixa de gordura.`,
+  },
+  {
+    q: `Atendem as cidades vizinhas de ${cidade.nome}?`,
+    a: `Sim. Atendemos também ${cidade.vizinhas.join(', ')} e as demais cidades do DDD 19.`,
+  },
+];
+const proximas = cidades.filter((c) => c.regiao === cidade.regiao && c.slug !== cidade.slug);
+const msg = `Olá! Vim pelo site e preciso de uma desentupidora em ${cidade.nome}.`;
+const servico = {
+  nome: `Desentupidora em ${cidade.nome}`,
+  keyword: 'Desentupidora',
+  metaDescription: `Desentupidora 24 horas em ${cidade.nome} - SP.`,
+};
+---
+
+<Base
+  title={`Desentupidora em ${cidade.nome} 24h | Chegamos em ${site.arrivalMinutes} min | Dutra`}
+  description={`Desentupidora 24 horas em ${cidade.nome}: desentupimento de pia, ralo, vaso, cano e esgoto, hidrojateamento e limpa fossa. Chegamos em até ${site.arrivalMinutes} minutos. Chame no WhatsApp.`}
+  schema={[serviceSchema(servico, `${cidade.nome} - SP`), faqSchema(faq), breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="pill"><Icon name="pin" size={18} /> {regiao.nome}</span>
+      <h1>Desentupidora em {cidade.nome}: plantão 24 horas</h1>
+      <p class="hero-lead">
+        Pia, ralo, vaso ou esgoto entupido em {cidade.nome}? A {site.name} sai na hora e chega em até {site.arrivalMinutes} minutos.
+      </p>
+      <CtaButtons message={msg} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-grid">
+      <article class="prose">
+        <h2>Atendimento em {cidade.nome}</h2>
+        <p>{cidade.sobre}</p>
+        <p>
+          O chamado é simples: você fala com a gente pelo WhatsApp ou por telefone, informa o bairro e o problema, e a
+          equipe mais próxima de {cidade.nome} vai até você. Precisa esgotar a fossa? Veja a página de
+          <a href={fossaPath(cidade)}>limpa fossa em {cidade.nome}</a>.
+        </p>
+
+        <h2>Dúvidas de quem mora em {cidade.nome}</h2>
+        <FaqList items={faq} />
+
+        <h2>Cidades próximas</h2>
+        <div class="chips">
+          {proximas.map((c) => <a href={cidadePath(c)}>{c.nome}</a>)}
+        </div>
+      </article>
+
+      <aside class="sidebar">
+        <div class="side-card">
+          <h2>Desentupidora em {cidade.nome}</h2>
+          <p>Plantão 24 horas. Chegamos em até {site.arrivalMinutes} minutos.</p>
+          <CtaButtons message={msg} size="md" />
+        </div>
+        <div class="side-list">
+          <h2>Também em {cidade.nome}</h2>
+          <ul>
+            <li><a href={fossaPath(cidade)}><Icon name="truck" size={18} /> Limpa fossa em {cidade.nome}</a></li>
+            <li><a href="/servicos/hidrojateamento/"><Icon name="jet" size={18} /> Hidrojateamento</a></li>
+            <li><a href="/servicos/limpeza-de-caixa-de-gordura/"><Icon name="grease" size={18} /> Caixa de gordura</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Serviços</span>
+        <h2>O que resolvemos em {cidade.nome}</h2>
+      </div>
+      <div class="services-grid">
+        {servicos.map((s) => <ServiceCard servico={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={`Entupiu em ${cidade.nome}?`} message={msg} />
+</Base>

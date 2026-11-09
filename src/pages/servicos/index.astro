@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaButtons from '../../components/CtaButtons.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { site } from '../../data/site';
+import { servicos, categorias } from '../../data/servicos';
+import { breadcrumbSchema } from '../../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Serviços', path: '/servicos/' },
+];
+---
+
+<Base
+  title="Serviços: Desentupimento e Limpa Fossa em Campinas e Região | Dutra"
+  description="Serviços da Desentupidora Dutra em Campinas e região: limpa fossa, caixa de gordura, hidrojateamento e desentupimento de pia, ralo, vaso, cano, esgoto e conduíte. 24 horas."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>Serviços de desentupidora e limpa fossa</h1>
+      <p class="hero-lead">Atendimento 24 horas em Campinas e região, com chegada em até {site.arrivalMinutes} minutos.</p>
+      <CtaButtons />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      {
+        categorias.map((cat) => (
+          <>
+            <h2 class="group-title">{cat}</h2>
+            <div class="services-grid">
+              {servicos.filter((s) => s.categoria === cat).map((s) => <ServiceCard servico={s} />)}
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </section>
+  <CtaBand />
+</Base>

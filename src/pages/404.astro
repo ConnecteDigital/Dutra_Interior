@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import { site } from '../data/site';
+---
+
+<Base title={`Página não encontrada | ${site.name}`} description="Página não encontrada." noindex>
+  <section class="hero page-hero">
+    <div class="container">
+      <h1>Página não encontrada</h1>
+      <p class="hero-lead">Não encontramos essa página. Se o problema é entupimento ou fossa cheia, é só chamar. Fale com a gente ou <a href="/" class="link-light">volte ao início</a>.</p>
+      <CtaButtons />
+    </div>
+  </section>
+</Base>

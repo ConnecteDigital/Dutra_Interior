@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { cidades, cidadesPorRegiao, cidadePath, fossaPath } from '../data/locais';
+import { breadcrumbSchema } from '../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Cidades atendidas', path: '/cidades-atendidas/' },
+];
+---
+
+<Base
+  title="Cidades Atendidas: Desentupidora e Limpa Fossa no DDD 19 | Dutra"
+  description={`Desentupidora e limpa fossa 24 horas em Campinas, Sumaré, Hortolândia, Indaiatuba, Americana, Piracicaba, Limeira e mais ${cidades.length - 7} cidades do DDD 19. Chegada em até ${site.arrivalMinutes} minutos.`}
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>Cidades atendidas no DDD 19</h1>
+      <p class="hero-lead">São {cidades.length} cidades com plantão 24 horas de desentupidora e limpa fossa. Encontre a sua.</p>
+      <CtaButtons />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      {
+        cidadesPorRegiao().map((g) => (
+          <>
+            <h2 class="group-title">{g.regiao.nome}</h2>
+            <div class="city-table">
+              {g.cidades.map((c) => (
+                <div class="city-row">
+                  <strong><Icon name="pin" size={18} /> {c.nome}</strong>
+                  <a href={cidadePath(c)}>Desentupidora</a>
+                  <a href={fossaPath(c)}>Limpa fossa</a>
+                </div>
+              ))}
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </section>
+  <CtaBand />
+</Base>

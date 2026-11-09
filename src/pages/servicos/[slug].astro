@@ -1,0 +1,109 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaButtons from '../../components/CtaButtons.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import FaqList from '../../components/FaqList.astro';
+import Icon from '../../components/Icon.astro';
+import { Image } from 'astro:assets';
+import { fotoDoServico } from '../../data/fotos';
+import { site } from '../../data/site';
+import { servicos, type Servico } from '../../data/servicos';
+import { cidades, cidadePath, fossaPath } from '../../data/locais';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../data/schema';
+
+export function getStaticPaths() {
+  return servicos.map((servico) => ({ params: { slug: servico.slug }, props: { servico } }));
+}
+
+interface Props {
+  servico: Servico;
+}
+
+const { servico } = Astro.props;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Serviços', path: '/servicos/' },
+  { name: servico.nome, path: `/servicos/${servico.slug}/` },
+];
+const faq = [
+  ...servico.faq,
+  {
+    q: `Quanto tempo a equipe leva para chegar?`,
+    a: `O plantão é 24 horas e a chegada é em até ${site.arrivalMinutes} minutos nas regiões atendidas.`,
+  },
+];
+const foto = fotoDoServico(servico.slug);
+const outros = servicos.filter((s) => s.slug !== servico.slug);
+const msg = `Olá! Vim pelo site e preciso de ${servico.nome.toLowerCase()}.`;
+// Nas páginas de fossa e caixa de gordura, os links de cidade apontam para a página de limpa fossa
+const linkCidade = servico.categoria === 'Limpa fossa e limpeza' && servico.slug !== 'hidrojateamento' ? fossaPath : cidadePath;
+---
+
+<Base
+  title={`${servico.keyword} 24h | Dutra`}
+  description={servico.metaDescription}
+  schema={[serviceSchema(servico), faqSchema(faq), breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="pill"><Icon name={servico.icon} size={18} /> {servico.categoria}</span>
+      <h1>{servico.keyword}</h1>
+      <p class="hero-lead">{servico.resumo} Plantão 24 horas e chegada em até {site.arrivalMinutes} minutos.</p>
+      <CtaButtons message={msg} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-grid">
+      <article class="prose">
+        {servico.intro.map((p) => <p>{p}</p>)}
+
+        {
+          foto && (
+            <figure class="service-figure">
+              <Image src={foto.src} alt={foto.alt} widths={[480, 800, 1100]} sizes="(max-width: 960px) 100vw, 760px" />
+              <figcaption>{servico.nome}: serviço realizado pela {site.name}.</figcaption>
+            </figure>
+          )
+        }
+
+        <div class="two-boxes">
+          <div class="box">
+            <h2>Sinais de que está na hora</h2>
+            <ul>{servico.sinais.map((s) => <li>{s}</li>)}</ul>
+          </div>
+          <div class="box box-dark">
+            <h2>Passo a passo do serviço</h2>
+            <ol>{servico.comoFazemos.map((s) => <li>{s}</li>)}</ol>
+          </div>
+        </div>
+
+        <h2>Dúvidas sobre {servico.nome.toLowerCase()}</h2>
+        <FaqList items={faq} />
+
+        <h2>Cidades onde fazemos {servico.nome.toLowerCase()}</h2>
+        <div class="chips">
+          {cidades.map((c) => <a href={linkCidade(c)}>{c.nome}</a>)}
+        </div>
+      </article>
+
+      <aside class="sidebar">
+        <div class="side-card">
+          <h2>Chame agora</h2>
+          <p>Plantão 24 horas. Chegamos em até {site.arrivalMinutes} minutos.</p>
+          <CtaButtons message={msg} size="md" />
+        </div>
+        <div class="side-list">
+          <h2>Mais serviços</h2>
+          <ul>
+            {outros.map((s) => <li><a href={`/servicos/${s.slug}/`}><Icon name={s.icon} size={18} /> {s.nome}</a></li>)}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand message={msg} />
+</Base>
