@@ -15,5 +15,8 @@ São provisórias: troque pelas fotos reais da empresa assim que possível (bast
 | `desentupimento-de-conduite` | https://www.pexels.com/photo/3616745/ |
 | `desentupimento-de-agua-limpa` | https://www.pexels.com/photo/31213992/ |
 | `hidrojateamento` | https://www.pexels.com/photo/35153375/ |
-| `limpa-fossa` | https://www.pexels.com/photo/18468412/ |
 | `limpeza-de-caixa-de-gordura` | https://www.pexels.com/photo/8629124/ |
+
+## Fotos enviadas pelo responsável pelo site
+
+- `limpa-fossa`

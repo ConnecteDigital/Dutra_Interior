@@ -22,7 +22,7 @@ const alts: Record<string, string> = {
   'desentupimento-de-conduite': 'Fios saindo de conduíte em parede',
   'desentupimento-de-agua-limpa': 'Água corrente caindo da torneira em uma cuba',
   'hidrojateamento': 'Mão segurando pistola de jato de alta pressão durante limpeza',
-  'limpa-fossa': 'Caminhão-tanque estacionado em frente a galpões',
+  'limpa-fossa': 'Caminhão limpa fossa com mangotes estendidos pelo gramado e máquina desentupidora em uma caixa de esgoto',
   'limpeza-de-caixa-de-gordura': 'Cozinheiro lavando panela na pia de uma cozinha de restaurante',
 };
 
