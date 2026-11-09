@@ -5,6 +5,8 @@ import CtaBand from '../components/CtaBand.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import FaqList from '../components/FaqList.astro';
 import Icon from '../components/Icon.astro';
+import { Image } from 'astro:assets';
+import { fotoDoServico } from '../data/fotos';
 import { site } from '../data/site';
 import { servicos, categorias } from '../data/servicos';
 import { cidades, cidadesPorRegiao, cidadePath, principais } from '../data/locais';
@@ -50,6 +52,8 @@ const problemas: { icon: IconName; label: string; href: string }[] = [
 
 const destaque = principais.map((slug) => cidades.find((c) => c.slug === slug)!);
 
+const fotoGeral = fotoDoServico('geral');
+
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.data.getTime() - a.data.data.getTime())
   .slice(0, 3);
@@ -60,7 +64,20 @@ const posts = (await getCollection('blog'))
   description={site.description}
   schema={[faqSchema(faq)]}
 >
-  <section class="hero hero-home">
+  <section class:list={['hero', 'hero-home', { 'has-bg': fotoGeral }]}>
+    {
+      fotoGeral && (
+        <Image
+          class="hero-bg"
+          src={fotoGeral.src}
+          alt=""
+          widths={[480, 800, 1200, 1600]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      )
+    }
     <div class="container hero-split">
       <div>
         <span class="pill"><span class="dot" aria-hidden="true"></span> Equipe de plantão agora</span>

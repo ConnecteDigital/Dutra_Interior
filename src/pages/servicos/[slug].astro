@@ -6,7 +6,7 @@ import CtaBand from '../../components/CtaBand.astro';
 import FaqList from '../../components/FaqList.astro';
 import Icon from '../../components/Icon.astro';
 import { Image } from 'astro:assets';
-import { fotoDoServico } from '../../data/fotos';
+import { fotoDoServico, fotosReais } from '../../data/fotos';
 import { site } from '../../data/site';
 import { servicos, type Servico } from '../../data/servicos';
 import { cidades, cidadePath, fossaPath } from '../../data/locais';
@@ -64,7 +64,7 @@ const linkCidade = servico.categoria === 'Limpa fossa e limpeza' && servico.slug
           foto && (
             <figure class="service-figure">
               <Image src={foto.src} alt={foto.alt} widths={[480, 800, 1100]} sizes="(max-width: 960px) 100vw, 760px" />
-              <figcaption>{servico.nome}: serviço realizado pela {site.name}.</figcaption>
+              {fotosReais && <figcaption>{servico.nome}: serviço realizado pela {site.name}.</figcaption>}
             </figure>
           )
         }

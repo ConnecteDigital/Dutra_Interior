@@ -132,6 +132,12 @@ body:has(.nav-mobile[open]) .float-cta { display: none; }
 .hero { position: relative; background: var(--bg-soft); padding: clamp(36px, 6vw, 76px) 0 clamp(44px, 7vw, 84px); overflow: hidden; }
 .hero::after { content: ''; position: absolute; right: -140px; top: -140px; width: 420px; height: 420px; border-radius: 50%; background: var(--accent-soft); z-index: 0; }
 .hero > .container { position: relative; z-index: 1; }
+.hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; z-index: 0; }
+.hero.has-bg::after {
+  inset: 0; right: 0; top: 0; width: auto; height: auto; border-radius: 0;
+  background: linear-gradient(90deg, rgba(246, 242, 234, .97) 0%, rgba(246, 242, 234, .93) 46%, rgba(246, 242, 234, .55) 72%, rgba(11, 54, 64, .45) 100%);
+}
+@media (max-width: 900px) { .hero.has-bg::after { background: linear-gradient(180deg, rgba(246, 242, 234, .95) 0%, rgba(246, 242, 234, .9) 60%, rgba(246, 242, 234, .7) 100%); } }
 .hero h1 em { font-style: normal; color: var(--accent-dark); }
 .hero-lead { font-size: 1.2rem; color: var(--ink-soft); max-width: 640px; }
 .hero .cta-buttons { margin-top: 26px; }
@@ -183,8 +189,12 @@ body:has(.nav-mobile[open]) .float-cta { display: none; }
 }
 .service-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px); }
 .service-icon { flex: none; width: 58px; height: 58px; display: grid; place-items: center; border-radius: 14px; background: var(--accent-soft); color: var(--accent-dark); }
-.service-thumb { flex: none; width: 76px; height: 76px; border-radius: 14px; overflow: hidden; }
-.service-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.service-card.has-thumb { padding: 0; gap: 0; align-items: stretch; overflow: hidden; }
+.service-card.has-thumb .service-body { padding: 18px 18px 18px 20px; }
+.service-thumb { flex: none; width: 150px; min-height: 150px; overflow: hidden; background: var(--bg-soft); }
+.service-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.service-card:hover .service-thumb img { transform: scale(1.06); }
+@media (max-width: 560px) { .service-thumb { width: 110px; min-height: 130px; } .service-card.has-thumb .service-body { padding: 14px; } }
 .service-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .service-body h3 { margin: 0; }
 .service-body p { margin: 0; color: var(--ink-soft); font-size: .95rem; line-height: 1.5; }
