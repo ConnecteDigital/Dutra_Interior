@@ -396,3 +396,9 @@ body:has(.nav-mobile[open]) .float-cta { display: none; }
 .site-header .btn-call { border-color: #fff; }
 .topbar { background: var(--accent-dark); color: #fff; }
 .topbar svg { color: #fff; }
+
+/* barra fixa do celular: fundo na cor do site, Ligar em azul (cor da logo) */
+.float-call { background: #1a6bf0; }
+@media (max-width: 700px) {
+  .float-cta { background: var(--teal-950); border-top: 1px solid rgba(255, 255, 255, .1); }
+}
