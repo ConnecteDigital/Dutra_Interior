@@ -13,7 +13,7 @@ const arquivos = import.meta.glob<{ default: ImageMetadata }>('../assets/fotos/*
 
 // Texto alternativo de cada foto (descreve o que aparece na imagem)
 const alts: Record<string, string> = {
-  'geral': 'Trabalhador lavando calçada com jato de água de mangueira',
+  'geral': 'Mangote verde do caminhão conectado a uma abertura no chão',
   'desentupimento-de-pia': 'Pia redonda de aço inox com torneira aberta',
   'desentupimento-de-ralo': 'Ralo redondo de ferro em piso de concreto',
   'desentupimento-de-vaso-sanitario': 'Equipamento de desentupimento sendo usado dentro de um vaso sanitário',

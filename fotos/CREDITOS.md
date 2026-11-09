@@ -6,7 +6,6 @@ São provisórias: troque pelas fotos reais da empresa assim que possível (bast
 
 | Pasta | Origem |
 | --- | --- |
-| `geral` | https://www.pexels.com/photo/19256356/ |
 | `desentupimento-de-pia` | https://www.pexels.com/photo/34295401/ |
 | `desentupimento-de-ralo` | https://www.pexels.com/photo/13961561/ |
 | `desentupimento-de-cano` | https://www.pexels.com/photo/12880833/ |
@@ -20,3 +19,4 @@ São provisórias: troque pelas fotos reais da empresa assim que possível (bast
 - `limpa-fossa`
 - `desentupimento-de-esgoto`
 - `desentupimento-de-vaso-sanitario`
+- `geral`
