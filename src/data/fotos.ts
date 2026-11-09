@@ -14,10 +14,10 @@ const arquivos = import.meta.glob<{ default: ImageMetadata }>('../assets/fotos/*
 // Texto alternativo de cada foto (descreve o que aparece na imagem)
 const alts: Record<string, string> = {
   'geral': 'Mangote verde do caminhão conectado a uma abertura no chão',
-  'desentupimento-de-pia': 'Pia redonda de aço inox com torneira aberta',
+  'desentupimento-de-pia': 'Profissional de uniforme azul segurando o sifão embaixo de uma pia',
   'desentupimento-de-ralo': 'Ralo redondo de ferro em piso de concreto',
   'desentupimento-de-vaso-sanitario': 'Equipamento de desentupimento sendo usado dentro de um vaso sanitário',
-  'desentupimento-de-cano': 'Dois trabalhadores consertando tubulação em uma vala',
+  'desentupimento-de-cano': 'Máquina desentupidora rotativa na calçada, ao lado de uma caixa de passagem aberta',
   'desentupimento-de-esgoto': 'Caixa de inspeção de esgoto aberta em um gramado, com água parada',
   'desentupimento-de-conduite': 'Fios saindo de conduíte em parede',
   'desentupimento-de-agua-limpa': 'Água corrente caindo da torneira em uma cuba',

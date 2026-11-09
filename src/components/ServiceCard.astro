@@ -16,7 +16,7 @@ const foto = fotoDoServico(servico.slug);
   {
     foto ? (
       <span class="service-thumb">
-        <Image src={foto.src} alt={foto.alt} widths={[160, 320, 480]} sizes="(max-width: 560px) 110px, 150px" />
+        <Image src={foto.src} alt={foto.alt} widths={[320, 480, 720, 960]} sizes="(max-width: 560px) 300px, 400px" quality={80} />
       </span>
     ) : (
       <span class="service-icon"><Icon name={servico.icon} size={30} /></span>
