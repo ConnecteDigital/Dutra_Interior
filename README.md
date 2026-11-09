@@ -1,6 +1,6 @@
-# Desentupidora Dutra · site
+# Hidro Dutra · site
 
-Site da Desentupidora Dutra (desentupidora e limpa fossa 24h em Campinas e região, DDD 19), com foco em SEO local
+Site da Hidro Dutra (desentupidora e limpa fossa 24h em Campinas e região, DDD 19), com foco em SEO local
 e tráfego de Google Ads. Feito com [Astro](https://astro.build): gera páginas estáticas e é publicado na Vercel.
 
 ## Rodar localmente

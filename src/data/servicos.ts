@@ -32,7 +32,7 @@ export const servicos: Servico[] = [
     categoria: 'Limpa fossa e limpeza',
     intro: [
       'No interior, muita casa, chácara, sítio e condomínio de recreio não tem rede de esgoto na porta: quem faz esse trabalho é a fossa. Ela funciona bem por meses, até o lodo do fundo ocupar o espaço da água. Daí em diante o esgoto não tem para onde ir e começa a aparecer no ralo, no vaso ou no gramado.',
-      'A Desentupidora Dutra faz o esgotamento com caminhão limpa fossa em Campinas e nas cidades do DDD 19. O mangote vai do caminhão até a boca da fossa e suga líquido e lodo de uma vez, sem sujeira e sem contato com o resíduo.',
+      'A Hidro Dutra faz o esgotamento com caminhão limpa fossa em Campinas e nas cidades do DDD 19. O mangote vai do caminhão até a boca da fossa e suga líquido e lodo de uma vez, sem sujeira e sem contato com o resíduo.',
     ],
     sinais: [
       'Descarga lenta e ralos borbulhando em toda a casa',
@@ -237,7 +237,7 @@ export const servicos: Servico[] = [
     categoria: 'Desentupimento',
     intro: [
       'Poucas coisas incomodam tanto quanto um vaso sanitário entupido. Na maior parte dos atendimentos, a causa é algo que não deveria ter ido para o vaso: lenço umedecido, absorvente, cotonete, fralda, excesso de papel ou um objeto que caiu sem ninguém ver.',
-      'A Desentupidora Dutra atende Campinas e região 24 horas por dia. Usamos equipamento próprio para louça sanitária, que passa pelo sifão do vaso sem riscar o esmalte. Se a obstrução estiver no esgoto, e não no vaso, seguimos com a máquina pela tubulação.',
+      'A Hidro Dutra atende Campinas e região 24 horas por dia. Usamos equipamento próprio para louça sanitária, que passa pelo sifão do vaso sem riscar o esmalte. Se a obstrução estiver no esgoto, e não no vaso, seguimos com a máquina pela tubulação.',
     ],
     sinais: [
       'A água sobe em vez de descer na descarga',

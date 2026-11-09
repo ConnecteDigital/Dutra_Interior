@@ -5,8 +5,8 @@
 const PHONE_DIGITS = '5519991709018';
 
 export const site = {
-  name: 'Desentupidora Dutra',
-  shortName: 'Dutra',
+  name: 'Hidro Dutra',
+  shortName: 'Hidro Dutra',
   url: (import.meta.env.SITE ?? '').replace(/\/$/, ''),
   city: 'Campinas',
   // Como a região aparece nos textos ("em Campinas e região")
