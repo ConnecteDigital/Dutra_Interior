@@ -7,7 +7,7 @@ import path from 'node:path';
 const GTM = 'GTM-NKTZBFPR';
 const FONE = '5519991709018';
 const GTM_OUTRO = 'GTM-P8M6GGLD';
-const FONE_OUTRO = '5511927483973';
+const FONE_OUTRO = '5511927483974';
 
 async function listar(dir) {
   const itens = await readdir(dir, { withFileTypes: true });
